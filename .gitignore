@@ -111,4 +111,6 @@ venv.bak/
 /save
 /result
 /squad
+/cnn-dailymail/cnn_examples.pkl
+./glove.840B.300d.txt
 debug.py

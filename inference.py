@@ -60,7 +60,7 @@ class BeamSearcher(object):
         # dummy file for evaluation
         with open(self.src_file, "w") as f:
             for i in range(len(self.data_loader)):
-                f.write(i+"\n")
+                f.write(str(i)+"\n")
 
     @staticmethod
     def sort_hypotheses(hypotheses):

@@ -316,6 +316,22 @@ def make_vocab_from_squad(output_file, counter, max_vocab_size):
 
     return word2idx
 
+def make_vocab_from_dm(output_file, counter, max_vocab_size):
+    sorted_vocab = sorted(counter.items(), key=lambda kv: kv[1], reverse=True)
+    word2idx = dict()
+    word2idx[PAD_TOKEN] = 0
+    word2idx[UNK_TOKEN] = 1
+    word2idx[START_TOKEN] = 2
+    word2idx[END_TOKEN] = 3
+
+    for idx, (token, freq) in enumerate(sorted_vocab, start=4):
+        if len(word2idx) == max_vocab_size:
+            break
+        word2idx[token] = idx
+    with open(output_file, "wb") as f:
+        pickle.dump(word2idx, f)
+
+    return word2idx
 
 def make_embedding(embedding_file, output_file, word2idx):
     word2embedding = dict()
@@ -338,6 +354,29 @@ def make_embedding(embedding_file, output_file, word2idx):
         pickle.dump(embedding, f)
     return embedding
 
+def make_conll_format2(examples, src_file, trg_file):
+    src_fw = open(src_file, "w")
+    trg_fw = open(trg_file, "w")
+    for example in tqdm(examples):
+        c_tokens = example["context_tokens"]
+        if "\n" in c_tokens:
+            print(c_tokens)
+            print("new line")
+        copied_tokens = deepcopy(c_tokens)
+        q_tokens = example["ques_tokens"]
+
+        for token in copied_tokens:
+            if "\t" in token:
+                src_fw.write(token + "\n")
+            else:
+                src_fw.write(token + "\t" + "O" + "\n")
+
+        src_fw.write("\n")
+        question = " ".join(q_tokens)
+        trg_fw.write(question + "\n")
+
+    src_fw.close()
+    trg_fw.close()
 
 def time_since(t):
     """ Function for time. """

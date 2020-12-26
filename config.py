@@ -25,12 +25,12 @@ num_layers = 2
 hidden_size = 300
 embedding_size = 300
 lr = 0.1
-batch_size = 64
+batch_size = 6
 dropout = 0.3
 max_grad_norm = 5.0
 
 use_pointer = True
 beam_size = 10
 min_decode_step = 8
-max_decode_step = 30
+max_decode_step = 100
 output_dir = "./result/pointer_maxout_ans"
