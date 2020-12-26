@@ -34,3 +34,7 @@ python2 eval.py --out_file prediction_file --src_file src_file --tgt_file target
 |  <center>BLEU_1</center> |  <center>BLEU_2</center> |  <center>BLEU_3</center> | <center>BLEU_4</center> |
 |:--------|:--------:|--------:|--------:|
 |<center> 45.22 </center> | <center> 29.94 </center> |<center> 22.01</center>| <center>16.76</center>|
+
+## Training for text summarization
+Download CNN/Daily Mail stories from [here](https://cs.nyu.edu/~kcho/DMQA/). Unzip the data and put it in the `cnn-dailymail` directory. Then run `cnn-dailymail/process.py` on each of the datasets get a pickle file for each one. 
+Finally create the dataset in the format that the model uses by running `data/dm_process.py`. Once it's finished, you can run the model the same way you would run it for Question Generation task.
